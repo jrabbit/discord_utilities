@@ -22,7 +22,7 @@ def stack(context, command=None):
     global help_message
     """Execute a Stack-related command."""
     if command is None:
-        yield from bot.say(help_message)
+        yield from bot.say(help_message.format(context.prefix))
     else:
         yield from bot.say('Invalid stack command.')
 
@@ -189,11 +189,13 @@ def default():
     return {'stack_channel': None, 'stack_role': None, 'speaking_queue': [], 'queue_members': set(), 'stored_overwrites': []}
 
 help_message = """```
-?stack regchannel [channel-name]: registers the stack channel.
-?stack regrole [role-name]: registers the role channel.
-?stack join: puts the author of the message on the stack, if they are not already.
-?stack leave: takes the author out of the stack, if they are on it.
-?stack next: only recognized in the stack channel itself. Used by the current speaker or admins (when appropriate), removes the current speaker from the stack and lets the next person speak.
+{0}stack regchannel [channel-name]: registers the stack channel.
+{0}stack regrole [role-name]: registers the role channel.
+{0}stack join: puts the author of the message on the stack, if they are not already.
+{0}stack leave: takes the author out of the stack, if they are on it.
+{0}stack next: only recognized in the stack channel itself. Used by the current speaker or admins (when appropriate), removes the current speaker from the stack and lets the next person speak.
+{0}stack lock: turn off non-stack messages in stack channel.
+{0}stack unlock: turn on non-stack messages in stack channel.
 ```"""
 from pickle import load, dump
 from pathlib import Path
